@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.title} + ' - Bulletin Board'">Post Title - Bulletin Board</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Flash Messages -->
+        <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${message}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 th:text="${post.title}">Post Title</h1>
+            <a th:href="@{/posts}" class="btn btn-secondary">Back to List</a>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Author:</strong> <span th:text="${post.author}">Author Name</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Views:</strong> <span th:text="${post.viewCount}">0</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Date:</strong> <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2023-01-01</span>
+                    </div>
+                </div>
+                <div class="row mt-2" th:if="${post.modifiedAt != null}">
+                    <div class="col-12">
+                        <small class="text-muted">Modified: <span th:text="${#temporals.format(post.modifiedAt, 'yyyy-MM-dd HH:mm')}">2023-01-01</span></small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text" style="white-space: pre-line;" th:text="${post.content}">Post content goes here...</p>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-outline-primary">Edit</a>
+                    <a th:href="@{/posts/{id}/delete(id=${post.id})}" class="btn btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
