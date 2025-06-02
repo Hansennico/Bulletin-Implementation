@@ -1,4 +1,5 @@
 # Bulletin-Implementation
+Simple bulletin board web application using Spring Boot Web Framework with bootstrap
 
 ### Requirement
 
